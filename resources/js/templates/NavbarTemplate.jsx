@@ -34,7 +34,7 @@ export default function NavbarTemplate(props) {
             <List>
                 {navItems.map((item, key) => (
                     <ListItem key={keyframes} disablePadding>
-                        <Link className="white-link" to={item?.route}>
+                        <Link className="black-link" to={item?.route}>
                             <ListItemButton sx={{ textAlign: "center" }}>
                                 <ListItemText primary={item?.label} />
                             </ListItemButton>

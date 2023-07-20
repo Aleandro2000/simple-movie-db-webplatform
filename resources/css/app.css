@@ -29,3 +29,8 @@ body, html {
     color: white;
     text-decoration: none;
 }
+
+.black-link {
+    color: black;
+    text-decoration: none;
+}
