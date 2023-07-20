@@ -7,6 +7,8 @@ use App\Models\Poster;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
+use function Psy\debug;
+
 /**
  * Class MovieService.
  */
@@ -14,7 +16,7 @@ abstract class MovieService
 {
     public static function storeMovie(array $movieData)
     {
-        if (!Movie::query()->where("imdbID", $movieData["imdbID"])->first()) {
+        if (isset($movieData["imdbID"]) && !Movie::query()->where("imdbID", $movieData["imdbID"])->first()) {
             Movie::query()->create([
                 "Title" => $movieData["Title"],
                 "Year" => $movieData["Year"],
@@ -27,10 +29,12 @@ abstract class MovieService
     public static function storePoster(array $movieData)
     {
         if (isset($movieData["Poster"]) && $movie = Movie::query()->where("imdbID", $movieData["imdbID"])->first()) {
-            Poster::query()->create([
-                "movie_id" => $movie->id,
-                "Poster" => $movieData["Poster"],
-            ]);
+            if (!Poster::query()->where("movie_id", $movie->id)->first()) {
+                Poster::query()->create([
+                    "movie_id" => $movie->id,
+                    "Poster" => $movieData["Poster"],
+                ]);
+            }
         }
     }
 
@@ -52,6 +56,6 @@ abstract class MovieService
 
     public static function fetchMovies()
     {
-        return DB::table('movies')->join("posters", "movies.id", "=", "posters.movie_id")->select()->get();
+        return DB::table('movies')->join("posters", "movies.id", "=", "posters.movie_id")->get();
     }
 }
