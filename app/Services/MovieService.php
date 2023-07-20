@@ -7,8 +7,6 @@ use App\Models\Poster;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
-use function Psy\debug;
-
 /**
  * Class MovieService.
  */
