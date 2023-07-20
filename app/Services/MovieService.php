@@ -21,10 +21,10 @@ abstract class MovieService
     }
     
     public static function storePoster(array $movieData) {
-        if (isset($movieData["Poster"]) && $movie = Movie::query()->where('title', $movieData['Title'])->first()) {
+        if (isset($movieData["Poster"]) && $movie = Movie::query()->where("title", $movieData["Title"])->first()) {
             Poster::query()->create([
-                'movie_id' => $movie->id,
-                'url' => $movieData['Poster'],
+                "movie_id" => $movie->id,
+                "url" => $movieData["Poster"],
             ]);
         }
     }
