@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import NavbarTemplate from "../templates/NavbarTemplate";
 import CardPannelTemplate from "../templates/CardsPannelTemplate";
-import { Button1DataContext, Button2DataContext, Button3DataContext, MoviesContext, PostersContext } from "../contexts/DataContext";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Button1DataContext, Button2DataContext, Button3DataContext, MoviesContext } from "../contexts/DataContext";
+import { Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 export default function Dashboard() {
     const [dataType, setDataType] = useState("");
@@ -12,7 +12,6 @@ export default function Dashboard() {
     const [button2] = useContext(Button2DataContext);
     const [button3] = useContext(Button3DataContext);
     const [movies] = useContext(MoviesContext);
-    const [posters] = useContext(PostersContext);
 
     const getData = (type) => {
         switch (type) {
@@ -24,8 +23,6 @@ export default function Dashboard() {
                 return button3;
             case "movies":
                 return movies;
-            case "posters":
-                return posters;
             default:
                 return null;
         }
@@ -34,13 +31,17 @@ export default function Dashboard() {
     const handleChange = (setChange) => (event) => setChange(event.target.value);
 
     return (
-        <div className="fade-in-effect" style={{paddingBottom: "100px"}}>
+        <div className="fade-in-effect" style={{ paddingBottom: "100px" }}>
             <NavbarTemplate />
-            <center>
+            <center style={{ paddingTop: "100px" }}>
+                <Button onClick={() => setDataType("button1")} style={{margin: "5px"}} variant="contained">Button 1</Button>
+                <Button onClick={() => setDataType("button2")} style={{margin: "5px"}} variant="contained">Button 2</Button>
+                <Button onClick={() => setDataType("button3")} style={{margin: "5px"}} variant="contained">Button 3</Button>
+                <br />
                 <FormControl style={{
                     maxWidth: "400px",
                     width: "100%",
-                    marginTop: "100px",
+                    marginTop: "10px",
                 }}>
                     <InputLabel id="label-data-type">Select Data Type</InputLabel>
                     <Select
@@ -56,8 +57,7 @@ export default function Dashboard() {
                         <MenuItem value="button1">Button 1</MenuItem>
                         <MenuItem value="button2">Button 2</MenuItem>
                         <MenuItem value="button3">Button 3</MenuItem>
-                        <MenuItem value="button3">Movies</MenuItem>
-                        <MenuItem value="button3">Posters</MenuItem>
+                        <MenuItem value="movies">Movies</MenuItem>
                     </Select>
                 </FormControl>
             </center>

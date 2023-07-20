@@ -25,12 +25,4 @@ class MovieController extends Controller
             "result" => MovieService::fetchMovies(),
         ]);
     }
-
-    public function fetchPosters()
-    {
-        return response()->json([
-            "message" => "Posters fetched successfully",
-            "result" => MovieService::fetchPosters(),
-        ]);
-    }
 }

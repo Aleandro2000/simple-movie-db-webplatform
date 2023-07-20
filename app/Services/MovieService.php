@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Movie;
-use App\Models\Poster;
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -15,18 +14,11 @@ abstract class MovieService
     {
         if (!Movie::query()->where("title", "==", $movieData["Title"])->first()) {
             Movie::query()->create([
-                "title" => $movieData["Title"],
-                "year" => $movieData["Year"],
-            ]);
-        }
-    }
-
-    public static function storePoster(array $movieData)
-    {
-        if (isset($movieData["Poster"]) && $movie = Movie::query()->where("title", $movieData["Title"])->first()) {
-            Poster::query()->create([
-                "movie_id" => $movie->id,
-                "url" => $movieData["Poster"],
+                "Title" => $movieData["Title"],
+                "Year" => $movieData["Year"],
+                "imdbID" => $movieData["imdbID"],
+                "Type" => $movieData["Type"],
+                "Poster" => $movieData["Poster"],
             ]);
         }
     }
@@ -39,7 +31,6 @@ abstract class MovieService
             if (isset($data["Search"]) && is_array($data["Search"])) {
                 foreach ($data["Search"] as $movieData) {
                     MovieService::storeMovie($movieData);
-                    MovieService::storePoster($movieData);
                 }
             }
             return $data["Search"];
@@ -50,10 +41,5 @@ abstract class MovieService
     public static function fetchMovies()
     {
         return Movie::all();
-    }
-
-    public static function fetchPosters()
-    {
-        return Poster::all();
     }
 }

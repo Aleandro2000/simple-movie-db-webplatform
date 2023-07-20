@@ -7,9 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     protected $table = "movies";
-    protected $fillable = ["title", "year"];
-
-    public function posters() {
-        return $this->hasMany((Poster::class));
-    }
+    protected $fillable = ["Title", "Year", "imdbID", "Type", "Poster"];
 }

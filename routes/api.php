@@ -22,5 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix("/medias")->group(function (){
     Route::get("/fetch/show", [MovieController::class, "fetchAndStoreMovies"]);
     Route::get("/movies/show", [MovieController::class, "fetchMovies"]);
-    Route::get("/posters/show", [MovieController::class, "fetchPosters"]);
 });
