@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('movies', function (Blueprint $table) {
+        Schema::create("posters", function (Blueprint $table) {
             $table->id();
-            $table->string('Title');
-            $table->string('Year');
-            $table->string('imdbID');
-            $table->string("Type");
+            $table->unsignedBigInteger("movie_id");
+            $table->string("Poster");
             $table->timestamps();
+            $table->foreign("movie_id")->references("id")->on("movies")->onDelete("cascade");
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('movies');
+        Schema::dropIfExists("posters");
     }
 };
