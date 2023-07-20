@@ -7,6 +7,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 export default function Dashboard() {
     const [dataType, setDataType] = useState("");
     const [sorted, setSorted] = useState(false);
+    const [alphabetic, setAlphabetic] = useState(false);
     const [button1] = useContext(Button1DataContext);
     const [button2] = useContext(Button2DataContext);
     const [button3] = useContext(Button3DataContext);
@@ -30,7 +31,7 @@ export default function Dashboard() {
         }
     }
 
-    const handleChange = (event) => setDataType(event.target.value);
+    const handleChange = (setChange) => (event) => setChange(event.target.value);
 
     return (
         <div className="fade-in-effect" style={{paddingBottom: "100px"}}>
@@ -46,7 +47,7 @@ export default function Dashboard() {
                         labelId="select-label"
                         value={dataType}
                         defaultValue={dataType}
-                        onChange={handleChange}
+                        onChange={handleChange(setDataType)}
                         label="Select Data Type"
                     >
                         <MenuItem disabled value="">
@@ -60,7 +61,45 @@ export default function Dashboard() {
                     </Select>
                 </FormControl>
             </center>
-            <CardPannelTemplate data={getData(dataType)} sorted={sorted} />
+            <center>
+                <FormControl style={{
+                    maxWidth: "400px",
+                    width: "100%",
+                    marginTop: "10px",
+                }}>
+                    <InputLabel id="label-data-type">Sorted?</InputLabel>
+                    <Select
+                        labelId="select-label"
+                        value={sorted}
+                        defaultValue={sorted}
+                        onChange={handleChange(setSorted)}
+                        label="Select Data Type"
+                    >
+                        <MenuItem value={false}>NO</MenuItem>
+                        <MenuItem value={true}>YES</MenuItem>
+                    </Select>
+                </FormControl>
+            </center>
+            <center>
+                <FormControl style={{
+                    maxWidth: "400px",
+                    width: "100%",
+                    marginTop: "10px",
+                }}>
+                    <InputLabel id="label-data-type">Alphabetic?</InputLabel>
+                    <Select
+                        labelId="select-label"
+                        value={alphabetic}
+                        defaultValue={alphabetic}
+                        onChange={handleChange(setAlphabetic)}
+                        label="Select Data Type"
+                    >
+                        <MenuItem value={false}>NO</MenuItem>
+                        <MenuItem value={true}>YES</MenuItem>
+                    </Select>
+                </FormControl>
+            </center>
+            <CardPannelTemplate data={getData(dataType)} sorted={sorted} alphabetic={alphabetic} />
         </div>
     );
 }
