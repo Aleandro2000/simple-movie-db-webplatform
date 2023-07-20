@@ -69,7 +69,7 @@ export default function Dashboard() {
                     width: "100%",
                     marginTop: "10px",
                 }}>
-                    <InputLabel id="label-data-type">Sorted?</InputLabel>
+                    <InputLabel id="label-data-type">Sorted by year?</InputLabel>
                     <Select
                         labelId="select-label"
                         value={sorted}
