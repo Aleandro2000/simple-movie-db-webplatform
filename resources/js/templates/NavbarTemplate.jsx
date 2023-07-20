@@ -6,10 +6,16 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { Divider, Drawer, List, ListItem, ListItemButton, ListItemText, keyframes } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
-const navItems = ["Movies", "Posters", "Button 1", "Button 2", "Button 3"];
+const navItems = [
+    {
+        label: "Dashboard",
+        route: "/",
+    }
+];
 
 export default function NavbarTemplate(props) {
     const { window } = props;
@@ -26,11 +32,13 @@ export default function NavbarTemplate(props) {
             </Typography>
             <Divider />
             <List>
-                {navItems.map((item) => (
-                    <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: "center" }}>
-                            <ListItemText primary={item} />
-                        </ListItemButton>
+                {navItems.map((item, key) => (
+                    <ListItem key={keyframes} disablePadding>
+                        <Link className="white-link" to={item?.route}>
+                            <ListItemButton sx={{ textAlign: "center" }}>
+                                <ListItemText primary={item?.label} />
+                            </ListItemButton>
+                        </Link>
                     </ListItem>
                 ))}
             </List>
@@ -59,9 +67,11 @@ export default function NavbarTemplate(props) {
                         Movie DB
                     </Typography>
                     <Box sx={{ display: { xs: "none", sm: "block" } }}>
-                        {navItems.map((item) => (
-                            <Button key={item} sx={{ color: "#fff" }}>
-                                {item}
+                        {navItems.map((item, key) => (
+                            <Button key={key} sx={{ color: "#fff" }}>
+                                <Link className="white-link" to={item?.route}>
+                                    {item?.label}
+                                </Link>
                             </Button>
                         ))}
                     </Box>

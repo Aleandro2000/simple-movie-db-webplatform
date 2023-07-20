@@ -1,24 +1,19 @@
 import React from "react";
-import { CircularProgress, makeStyles } from "@mui/material";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-  },
-  spinner: {
-    color: theme.palette.primary.main,
-  },
-}));
+import { Blocks } from "react-loader-spinner";
 
 export default function LoadingSpinnerTemplate() {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      <CircularProgress className={classes.spinner} size={80} />
-    </div>
-  );
-};
+    return (
+        <div className="container fade-in-effect">
+            <div className="centered-text">
+                <Blocks
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="blocks-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="blocks-wrapper"
+                />
+            </div>
+        </div>
+    )
+}

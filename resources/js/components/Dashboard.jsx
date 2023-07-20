@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import NavbarTemplate from "../templates/NavbarTemplate";
 import CardPannelTemplate from "../templates/CardsPannelTemplate";
 import { Button1DataContext, Button2DataContext, Button3DataContext, MoviesContext, PostersContext } from "../contexts/DataContext";
-import { FormControl, MenuItem, Select } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 export default function Dashboard() {
     const [dataType, setDataType] = useState("");
@@ -33,7 +33,7 @@ export default function Dashboard() {
     const handleChange = (event) => setDataType(event.target.value);
 
     return (
-        <>
+        <div className="fade-in-effect" style={{paddingBottom: "100px"}}>
             <NavbarTemplate />
             <center>
                 <FormControl style={{
@@ -41,14 +41,16 @@ export default function Dashboard() {
                     width: "100%",
                     marginTop: "100px",
                 }}>
+                    <InputLabel id="label-data-type">Select Data Type</InputLabel>
                     <Select
                         labelId="select-label"
                         value={dataType}
+                        defaultValue={dataType}
                         onChange={handleChange}
                         label="Select Data Type"
                     >
-                        <MenuItem value="">
-                            <em>Select a Button</em>
+                        <MenuItem disabled value="">
+                            <em>Select Data Type</em>
                         </MenuItem>
                         <MenuItem value="button1">Button 1</MenuItem>
                         <MenuItem value="button2">Button 2</MenuItem>
@@ -59,6 +61,6 @@ export default function Dashboard() {
                 </FormControl>
             </center>
             <CardPannelTemplate data={getData(dataType)} sorted={sorted} />
-        </>
+        </div>
     );
 }

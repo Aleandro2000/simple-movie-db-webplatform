@@ -23,22 +23,23 @@ export default function App() {
     const [button1Data, setButton1Data] = useState();
     const [button2Data, setButton2Data] = useState();
     const [button3Data, setButton3Data] = useState();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(true);
-        axios.get("/api/medias/fetch/show/").then((responseFetch) => {
-            axios.get("/api/medias/movies/show/").then((responseMovies) => {
-                axios.get("/api/medias/posters/show/").then((responsePosters) => {
-                    setButton1Data(responseFetch.data?.result?.button1);
-                    setButton2Data(responseFetch.data?.result?.button2);
-                    setButton3Data(responseFetch.data?.result?.button3);
-                    setPosters(responsePosters.data?.result);
-                    setMovies(responseMovies.data?.result);
-                    setLoading(false);
-                }).catch(() => {});
-            }).catch(() => {});
-        }).catch(() => {});
+        if (loading) {
+            axios.get("/api/medias/fetch/show/").then((responseFetch) => {
+                axios.get("/api/medias/movies/show/").then((responseMovies) => {
+                    axios.get("/api/medias/posters/show/").then((responsePosters) => {
+                        setButton1Data(responseFetch.data?.result?.button1);
+                        setButton2Data(responseFetch.data?.result?.button2);
+                        setButton3Data(responseFetch.data?.result?.button3);
+                        setPosters(responsePosters.data?.result);
+                        setMovies(responseMovies.data?.result);
+                        setLoading(false);
+                    }).catch(() => { });
+                }).catch(() => { });
+            }).catch(() => { });
+        }
     }, [button1Data, button2Data, button3Data, movies, posters])
 
     return !loading ? (
