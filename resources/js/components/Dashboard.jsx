@@ -8,6 +8,8 @@ export default function Dashboard() {
     const [dataType, setDataType] = useState("");
     const [sorted, setSorted] = useState(false);
     const [alphabetic, setAlphabetic] = useState(false);
+    const [imdbSort, setImdbSort] = useState(false);
+    const [category, setCategory] = useState("");
     const [button1] = useContext(Button1DataContext);
     const [button2] = useContext(Button2DataContext);
     const [button3] = useContext(Button3DataContext);
@@ -34,9 +36,9 @@ export default function Dashboard() {
         <div className="fade-in-effect" style={{ paddingBottom: "100px" }}>
             <NavbarTemplate />
             <center style={{ paddingTop: "100px" }}>
-                <Button onClick={() => setDataType("button1")} style={{margin: "5px"}} variant="contained">Button 1</Button>
-                <Button onClick={() => setDataType("button2")} style={{margin: "5px"}} variant="contained">Button 2</Button>
-                <Button onClick={() => setDataType("button3")} style={{margin: "5px"}} variant="contained">Button 3</Button>
+                <Button onClick={() => setDataType("button1")} style={{ margin: "5px" }} variant="contained">Button 1</Button>
+                <Button onClick={() => setDataType("button2")} style={{ margin: "5px" }} variant="contained">Button 2</Button>
+                <Button onClick={() => setDataType("button3")} style={{ margin: "5px" }} variant="contained">Button 3</Button>
                 <br />
                 <FormControl style={{
                     maxWidth: "400px",
@@ -73,7 +75,7 @@ export default function Dashboard() {
                         value={sorted}
                         defaultValue={sorted}
                         onChange={handleChange(setSorted)}
-                        label="Select Data Type"
+                        label="Select Sorted Type"
                     >
                         <MenuItem value={false}>NO</MenuItem>
                         <MenuItem value={true}>YES</MenuItem>
@@ -92,14 +94,54 @@ export default function Dashboard() {
                         value={alphabetic}
                         defaultValue={alphabetic}
                         onChange={handleChange(setAlphabetic)}
-                        label="Select Data Type"
+                        label="Select Alphabetic Type"
                     >
                         <MenuItem value={false}>NO</MenuItem>
                         <MenuItem value={true}>YES</MenuItem>
                     </Select>
                 </FormControl>
             </center>
-            <CardPannelTemplate data={getData(dataType)} sorted={sorted} alphabetic={alphabetic} />
+            <center>
+                <FormControl style={{
+                    maxWidth: "400px",
+                    width: "100%",
+                    marginTop: "10px",
+                }}>
+                    <InputLabel id="label-data-type">Sort by Imdb Id?</InputLabel>
+                    <Select
+                        labelId="select-label"
+                        value={imdbSort}
+                        defaultValue={imdbSort}
+                        onChange={handleChange(setImdbSort)}
+                        label="Select IMDB Sorted Type"
+                    >
+                        <MenuItem value={false}>NO</MenuItem>
+                        <MenuItem value={true}>YES</MenuItem>
+                    </Select>
+                </FormControl>
+            </center>
+            <center>
+                <FormControl style={{
+                    maxWidth: "400px",
+                    width: "100%",
+                    marginTop: "10px",
+                }}>
+                    <InputLabel id="label-data-type">Choose Category</InputLabel>
+                    <Select
+                        labelId="select-label"
+                        value={category}
+                        defaultValue={category}
+                        onChange={handleChange(setCategory)}
+                        label="Select Category Type"
+                    >
+                        <MenuItem value="">All</MenuItem>
+                        {
+                            [...new Set(movies?.map((item) => item.Type))]?.map((item, key) => <MenuItem key={key} value={item}>{item}</MenuItem>)
+                        }
+                    </Select>
+                </FormControl>
+            </center>
+            <CardPannelTemplate data={getData(dataType)} sorted={sorted} alphabetic={alphabetic} imdbSort={imdbSort} category={category} />
         </div>
     );
 }
