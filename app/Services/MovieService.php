@@ -12,7 +12,7 @@ abstract class MovieService
 {
     public static function storeMovie(array $movieData)
     {
-        if (!Movie::query()->where("title", "==", $movieData["Title"])->first()) {
+        if (!Movie::query()->where("imdbID", $movieData["imdbID"])->first()) {
             Movie::query()->create([
                 "Title" => $movieData["Title"],
                 "Year" => $movieData["Year"],
