@@ -2,8 +2,7 @@ import React, { useContext, useState } from "react";
 import NavbarTemplate from "../templates/NavbarTemplate";
 import CardPannelTemplate from "../templates/CardsPannelTemplate";
 import { Button1DataContext, Button2DataContext, Button3DataContext, MoviesContext, PostersContext } from "../contexts/DataContext";
-import { LoadingContext } from "../contexts/LoadingContext";
-import { MenuItem, Select } from "@mui/material";
+import { FormControl, MenuItem, Select } from "@mui/material";
 
 export default function Dashboard() {
     const [dataType, setDataType] = useState("");
@@ -11,9 +10,8 @@ export default function Dashboard() {
     const [button1] = useContext(Button1DataContext);
     const [button2] = useContext(Button2DataContext);
     const [button3] = useContext(Button3DataContext);
-    const [movies, setMovies] = useContext(MoviesContext);
-    const [posters, setPosters] = useContext(PostersContext);
-    const [loading, setLoading] = useContext(LoadingContext);
+    const [movies] = useContext(MoviesContext);
+    const [posters] = useContext(PostersContext);
 
     const getData = (type) => {
         switch (type) {
@@ -37,20 +35,30 @@ export default function Dashboard() {
     return (
         <>
             <NavbarTemplate />
-            <Select
-                labelId="select-label"
-                value={selectedOption}
-                onChange={handleChange}
-                label="Select Option"
-            >
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
-                <MenuItem value="option1">Option 1</MenuItem>
-                <MenuItem value="option2">Option 2</MenuItem>
-                <MenuItem value="option3">Option 3</MenuItem>
-            </Select>
-            <CardPannelTemplate />
+            <center>
+                <FormControl style={{
+                    maxWidth: "400px",
+                    width: "100%",
+                    marginTop: "100px",
+                }}>
+                    <Select
+                        labelId="select-label"
+                        value={dataType}
+                        onChange={handleChange}
+                        label="Select Data Type"
+                    >
+                        <MenuItem value="">
+                            <em>Select a Button</em>
+                        </MenuItem>
+                        <MenuItem value="button1">Button 1</MenuItem>
+                        <MenuItem value="button2">Button 2</MenuItem>
+                        <MenuItem value="button3">Button 3</MenuItem>
+                        <MenuItem value="button3">Movies</MenuItem>
+                        <MenuItem value="button3">Posters</MenuItem>
+                    </Select>
+                </FormControl>
+            </center>
+            <CardPannelTemplate data={getData(dataType)} sorted={sorted} />
         </>
     );
 }
