@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Movie;
 use App\Models\Poster;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -51,6 +52,6 @@ abstract class MovieService
 
     public static function fetchMovies()
     {
-        return Movie::all();
+        return DB::table('movies')->join("posters", "movies.id", "=", "posters.movie_id")->select()->get();
     }
 }
